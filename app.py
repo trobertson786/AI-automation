@@ -56,9 +56,15 @@ def main():
     client = get_client()
 
     if "messages" not in st.session_state:
-        st.session_state.messages = []
-        opening = get_ai_response(client, [{"role": "user", "content": OPENING_PROMPT}])
-        st.session_state.messages.append({"role": "assistant", "content": opening})
+        st.session_state.messages = [
+            {
+                "role": "assistant",
+                "content": (
+                    f"Hi there! I'm the {C['name']} assistant — here to help you with "
+                    f"{C['tagline'].lower()}. What can I help you with today?"
+                ),
+            }
+        ]
 
     for msg in st.session_state.messages:
         avatar = C["page_icon"] if msg["role"] == "assistant" else "👤"
