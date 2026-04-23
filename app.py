@@ -161,9 +161,17 @@ def main():
     client = get_client()
 
     if "messages" not in st.session_state:
-        st.session_state.messages = []
-        opening = get_ai_response(client, [{"role": "user", "content": OPENING_MESSAGE}])
-        st.session_state.messages.append({"role": "assistant", "content": opening})
+        st.session_state.messages = [
+            {
+                "role": "assistant",
+                "content": (
+                    "Hey! I'm the JF Physio assistant — here to help you figure out what's going on "
+                    "with any aches, niggles, or injuries that are getting in the way of your training "
+                    "or daily life. Whether it's a stubborn knee, a dodgy ankle, or something that's "
+                    "been bugging you for weeks — tell me what's going on and let's work through it together."
+                ),
+            }
+        ]
 
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"], avatar="🏃" if msg["role"] == "assistant" else "👤"):
